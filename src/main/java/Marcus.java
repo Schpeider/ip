@@ -18,19 +18,30 @@ public class Marcus {
         String userInput = "";
         Scanner reader = new Scanner(System.in);
 
+        //regex for markStatus, to identify if user input matches this style
+        Pattern markStatusPattern = Pattern.compile("^(mark) (\\d+)$");
+
+        //regex for unmarkStatus, to identify if user input matches this style
+        Pattern unmarkStatusPattern = Pattern.compile("^(unmark) (\\d+)$");
+
+        //regex for ToDos, to identify if user input matches this style
+        Pattern toDoPattern = Pattern.compile("^(todo) (.+)$");
+
+        //regex for Deadlines, to identify if user input matches this style
+        Pattern deadlinePattern = Pattern.compile("^(deadline) (.+) (/by) (.+)$");
+
+        //regex for Events, to identify if user input matches this style
+        Pattern eventPattern = Pattern.compile("^(event) (.+) (/from) (.+) (/to) (.+)$");
+
         while (true) {
             System.out.print("What can I do for you today?: ");
             userInput = reader.nextLine().trim(); //to remove whitespace if accidentally added by user
 
-            //regex for markStatus, to identify if user input matches this style
-            Pattern markStatusPattern = Pattern.compile("^(mark) (\\d+)$");
             Matcher markStatusMatcher = markStatusPattern.matcher(userInput);
-
-            //regex for unmarkStatus, to identify if user input matches this style
-            Pattern unmarkStatusPattern = Pattern.compile("^(unmark) (\\d+)$");
             Matcher unmarkStatusMatcher = unmarkStatusPattern.matcher(userInput);
-
-
+            Matcher toDoMatcher = toDoPattern.matcher(userInput);
+            Matcher deadlineMatcher = deadlinePattern.matcher(userInput);
+            Matcher eventMatcher = eventPattern.matcher(userInput);
 
             if (userInput.equals("bye")) {
                 break;
@@ -53,11 +64,26 @@ public class Marcus {
                 } else {
                     System.out.println("That chapter does not exist in my story");
                 }
-            } else {
-                taskList[taskListSize] = new Task(userInput);
+            } else if (toDoMatcher.matches()) {
+                taskList[taskListSize] = new ToDoTask(toDoMatcher.group(2));
                 taskListSize++;
                 System.out.println("A new chapter in my story!");
                 System.out.println("added: " + taskList[taskListSize - 1]);
+            } else if (deadlineMatcher.matches()) {
+                taskList[taskListSize] = new DeadlineTask(deadlineMatcher.group(2), deadlineMatcher.group(4));
+                taskListSize++;
+                System.out.println("A new chapter in my story!");
+                System.out.println("added: " + taskList[taskListSize - 1]);
+            } else if (eventMatcher.matches()) {
+                taskList[taskListSize] = new EventTask(eventMatcher.group(2),
+                                                        eventMatcher.group(4),
+                                                        eventMatcher.group(6));
+                taskListSize++;
+                System.out.println("A new chapter in my story!");
+                System.out.println("added: " + taskList[taskListSize - 1]);
+            } else {
+                System.out.println("I don't recognise these words!");
+                System.out.println("Invalid task format");
             }
             System.out.print("\n");
         }
