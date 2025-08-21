@@ -11,7 +11,7 @@ public class Task {
     //returns a string to inform updated status
     public String markComplete() {
         if (this.isCompleted) {
-            return "This chapter has already been read before";
+            return "This chapter has already been completed before";
         } else {
             this.isCompleted = true;
             return "A brand new chapter complete!\n" + this;
@@ -23,10 +23,10 @@ public class Task {
     //returns a string to inform updated status
     public String unmarkComplete() {
         if (!this.isCompleted) {
-            return "I haven't started on this chapter yet";
+            return "You haven't started on this chapter yet";
         } else {
             this.isCompleted = false;
-            return "I-I can't remember this chapter anymore...\n" + this;
+            return "You forgot about this chapter...\n" + this;
         }
 
     }
