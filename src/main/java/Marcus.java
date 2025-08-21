@@ -68,14 +68,14 @@ public class Marcus {
                     if (taskIndex <= taskListSize & taskIndex > 0) {
                         System.out.println(taskList.get(taskIndex - 1).markComplete());
                     } else {
-                        System.out.println("That chapter does not exist in your story");
+                        throw(new InvalidIndexError());
                     }
                 } else if (unmarkStatusMatcher.matches()) {
                     int taskIndex = Integer.parseInt(unmarkStatusMatcher.group(2));
                     if (taskIndex <= taskListSize & taskIndex > 0) {
                         System.out.println(taskList.get(taskIndex - 1).unmarkComplete());
                     } else {
-                        System.out.println("That chapter does not exist in your story");
+                        throw(new InvalidIndexError());
                     }
                 } else if (toDoMatcher.matches()) {
                     String newTaskDescription = toDoMatcher.group(2);
@@ -111,14 +111,14 @@ public class Marcus {
                         System.out.println(removedTask);
                         System.out.println("Now you have " + taskListSize + " chapters in your story");
                     } else {
-                        System.out.println("This chapter does not exist in your story");
+                        throw(new InvalidIndexError());
                     }
                 } else {
                     throw new InvalidInputError();
                 }
             } catch (MissingDescriptionError e) {
                 System.out.println("Description cannot be empty\n" + e.getMessage());
-            } catch (InvalidInputError e) {
+            } catch (InvalidInputError | InvalidIndexError e) {
                 System.out.println(e.getMessage());
             }
             System.out.print("\n");
