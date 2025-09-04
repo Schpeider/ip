@@ -12,6 +12,8 @@ public class Parser {
     private static Pattern deadlinePattern = Pattern.compile("^(deadline) (.+) (/by) (" + datePattern + ")$");
     private static Pattern eventPattern = Pattern.compile("^(event) (.+) (/from) (.+) (/to) (.+)$");
     private static Pattern deletePattern = Pattern.compile("^(delete) (\\d+)$");
+    private static Pattern findPattern = Pattern.compile("^(find)\\s*(.*)$");
+
 
     public static ArrayList<String> parseCommand(String userInput) {
         //matching user input with each of the possible patterns
@@ -21,6 +23,7 @@ public class Parser {
         Matcher deadlineMatcher = deadlinePattern.matcher(userInput);
         Matcher eventMatcher = eventPattern.matcher(userInput);
         Matcher deleteMatcher = deletePattern.matcher(userInput);
+        Matcher findMatcher = findPattern.matcher(userInput);
 
         ArrayList<String> ret = new ArrayList<>();
 
@@ -49,6 +52,9 @@ public class Parser {
         } else if (deleteMatcher.matches()) {
             ret.add("delete");
             ret.add(deleteMatcher.group(2));
+        } else if (findMatcher.matches()) {
+            ret.add("find");
+            ret.add(findMatcher.group(2));
         } else {
             ret.add("Invalid Command");
         }

@@ -9,6 +9,10 @@ public class Task {
         this.isCompleted = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     //switches status from false to true
     //returns a string to inform updated status
     public String markComplete() {
