@@ -1,3 +1,10 @@
+package marcus;
+
+import marcus.exception.InvalidIndexError;
+import marcus.exception.InvalidInputError;
+import marcus.exception.MissingDescriptionError;
+import marcus.task.Task;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 

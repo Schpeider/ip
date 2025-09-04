@@ -1,3 +1,12 @@
+package marcus;
+
+import marcus.exception.InvalidIndexError;
+import marcus.exception.MissingDescriptionError;
+import marcus.task.DeadlineTask;
+import marcus.task.EventTask;
+import marcus.task.Task;
+import marcus.task.ToDoTask;
+
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;

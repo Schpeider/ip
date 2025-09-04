@@ -1,3 +1,10 @@
+package marcus;
+
+import marcus.task.DeadlineTask;
+import marcus.task.EventTask;
+import marcus.task.Task;
+import marcus.task.ToDoTask;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

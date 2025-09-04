@@ -1,3 +1,5 @@
+package marcus.task;
+
 public class Task {
     String description;
     boolean isCompleted;

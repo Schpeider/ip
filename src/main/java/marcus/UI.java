@@ -1,3 +1,7 @@
+package marcus;
+
+import marcus.task.Task;
+
 import java.util.Scanner;
 
 public class UI {
