@@ -13,6 +13,12 @@ public class Parser {
     private static Pattern eventPattern = Pattern.compile("^(event) (.+) (/from) (.+) (/to) (.+)$");
     private static Pattern deletePattern = Pattern.compile("^(delete) (\\d+)$");
 
+    /**
+     * Parses user input and processes the important information for each command.
+     *
+     * @param userInput The user's input to the chatbot, Marcus.
+     * @return An ArrayList, where the zero index stores type of command, and the remaining store the parsed parameters.
+     */
     public static ArrayList<String> parseCommand(String userInput) {
         //matching user input with each of the possible patterns
         Matcher markStatusMatcher = markStatusPattern.matcher(userInput);

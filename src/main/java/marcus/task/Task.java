@@ -9,8 +9,11 @@ public class Task {
         this.isCompleted = false;
     }
 
-    //switches status from false to true
-    //returns a string to inform updated status
+    /**
+     * Switches complete status from false to true.
+     *
+     * @return Success of switching status to complete.
+     */
     public String markComplete() {
         if (this.isCompleted) {
             return "This chapter has already been completed before";
@@ -21,8 +24,11 @@ public class Task {
 
     }
 
-    //switches status from true to false
-    //returns a string to inform updated status
+    /**
+     * Switches complete status from true to false.
+     *
+     * @return Success of switching status to incomplete.
+     */
     public String unmarkComplete() {
         if (!this.isCompleted) {
             return "You haven't started on this chapter yet";
@@ -33,6 +39,11 @@ public class Task {
 
     }
 
+    /**
+     * Returns an icon based on status of completion of task.
+     *
+     * @return An icon used to represent whether a task has been completed.
+     */
     public String getStatusIcon() {
         return isCompleted ? "[X]" : "[ ]";
     }
@@ -41,6 +52,10 @@ public class Task {
         return this.description;
     }
 
+    /**
+     * Returns a string representation of the task.
+     * The format of the string representation is for the user interface.
+     */
     @Override
     public String toString() {
         return this.getStatusIcon() + " " + this.description;

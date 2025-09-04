@@ -42,6 +42,11 @@ public class TaskList {
         SaveFileManager.writeToFile(tasks.toString());
     }
 
+    /**
+     * Marks a task as completed.
+     *
+     * @throws InvalidIndexError if index provided is less than 0 or greater than size of task list.
+     */
     public String mark(int taskIndex) throws InvalidIndexError {
         if (taskIndex <= taskListSize & taskIndex > 0) {
             String message = taskList.get(taskIndex - 1).markComplete();
@@ -52,6 +57,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task as incomplete.
+     *
+     * @throws InvalidIndexError if index provided is less than 0 or greater than size of task list.
+     */
     public String unmark(int taskIndex) throws InvalidIndexError {
         if (taskIndex <= taskListSize & taskIndex > 0) {
             String message = taskList.get(taskIndex - 1).unmarkComplete();
@@ -62,6 +72,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new todo task to the task list.
+     *
+     * @param taskDescription A description of the task.
+     * @throws MissingDescriptionError if taskDescription is missing.
+     */
     public void add(String taskDescription) throws MissingDescriptionError {
         if (taskDescription.isEmpty()) {
             throw new MissingDescriptionError("Correct format: todo <taskDescription>");
@@ -72,12 +88,25 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds a new deadline task to the task list.
+     *
+     * @param taskDescription A description of the task.
+     * @param taskDeadline The deadline of the task, stored as a LocalDate object.
+     */
     public void add(String taskDescription, LocalDate taskDeadline) {
         taskList.add(new DeadlineTask(taskDescription, taskDeadline));
         taskListSize++;
         this.updateTask();
     }
 
+    /**
+     * Adds a new event task to the task list.
+     *
+     * @param taskDescription A description of the task.
+     * @param start The start time of the task.
+     * @param end The end time of the task.
+     */
     public void add(String taskDescription, String start, String end) {
         taskList.add(new EventTask(taskDescription, start, end));
         taskListSize++;
