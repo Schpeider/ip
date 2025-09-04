@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -42,7 +43,7 @@ public class SaveFileManager {
             if (newTask[0].equals("T")) {
                 tasks.add(new ToDoTask(newTask[2]));
             } else if (newTask[0].equals("D")) {
-                tasks.add(new DeadlineTask(newTask[2], newTask[3]));
+                tasks.add(new DeadlineTask(newTask[2], LocalDate.parse(newTask[3])));
             } else {
                 tasks.add(new EventTask(newTask[2], newTask[3], newTask[4]));
             }
