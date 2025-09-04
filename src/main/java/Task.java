@@ -35,6 +35,10 @@ public class Task {
         return isCompleted ? "[X]" : "[ ]";
     }
 
+    public String getSaveFileString() {
+        return this.description;
+    }
+
     @Override
     public String toString() {
         return this.getStatusIcon() + " " + this.description;

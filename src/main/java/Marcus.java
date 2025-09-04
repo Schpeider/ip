@@ -1,15 +1,16 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.ArrayList;
 
 public class Marcus {
     public static void main(String[] args) {
         //initialise variables
-        ArrayList<Task> taskList = new ArrayList<>();
-        int taskListSize = 0;
+        TaskList taskList = new TaskList();
         String userInput;
         Scanner reader = new Scanner(System.in);
+
 
         //Greeting Text
         System.out.println("Greetings, Marcus here!");
@@ -17,9 +18,6 @@ public class Marcus {
         System.out.println("I think of each task as a chapter, one step at a time, each with its own meaning, "
                             + "each shaping the story I live.");
         System.out.println("I hope this way of thinking will help you face your challenges more easily too!\n");
-
-
-
 
         //regex for markStatus, to identify if user input matches this style
         Pattern markStatusPattern = Pattern.compile("^(mark) (\\d+)$");
@@ -55,64 +53,28 @@ public class Marcus {
                 if (userInput.equals("bye")) {
                     break;
                 } else if (userInput.equals("list")) {
-                    if (taskListSize > 0) {
-                        System.out.println("Here are the current chapters:");
-                        for (int i = 0; i < taskListSize; i++) {
-                            System.out.println((i + 1) + ". " + taskList.get(i));
-                        }
-                    } else {
-                        System.out.println("Your story has no chapters currently");
-                    }
+                    taskList.listTasks();
                 } else if (markStatusMatcher.matches()) {
                     int taskIndex = Integer.parseInt(markStatusMatcher.group(2));
-                    if (taskIndex <= taskListSize & taskIndex > 0) {
-                        System.out.println(taskList.get(taskIndex - 1).markComplete());
-                    } else {
-                        throw(new InvalidIndexError());
-                    }
+                    taskList.mark(taskIndex);
                 } else if (unmarkStatusMatcher.matches()) {
                     int taskIndex = Integer.parseInt(unmarkStatusMatcher.group(2));
-                    if (taskIndex <= taskListSize & taskIndex > 0) {
-                        System.out.println(taskList.get(taskIndex - 1).unmarkComplete());
-                    } else {
-                        throw(new InvalidIndexError());
-                    }
+                    taskList.unmark(taskIndex);
                 } else if (toDoMatcher.matches()) {
-                    String newTaskDescription = toDoMatcher.group(2);
-                    if (newTaskDescription.isEmpty()) {
-                        throw new MissingDescriptionError("Correct format: todo <taskDescription>");
-                    } else {
-                        taskList.add(new ToDoTask(newTaskDescription));
-                        taskListSize++;
-                        System.out.println("A new chapter in your story!");
-                        System.out.println("added: " + taskList.get(taskListSize - 1));
-                        System.out.println("Now you have " + taskListSize + " chapters in your story");
-                    }
+                    String taskDescription = toDoMatcher.group(2);
+                    taskList.add(taskDescription);
                 } else if (deadlineMatcher.matches()) {
-                    taskList.add(new DeadlineTask(deadlineMatcher.group(2), deadlineMatcher.group(4)));
-                    taskListSize++;
-                    System.out.println("A new chapter in your story!");
-                    System.out.println("added: " + taskList.get(taskListSize - 1));
-                    System.out.println("Now you have " + taskListSize + " chapters in your story");
+                    String taskDescription = deadlineMatcher.group(2);
+                    String taskDeadline = deadlineMatcher.group(4);
+                    taskList.add(taskDescription, taskDeadline);
                 } else if (eventMatcher.matches()) {
-                    taskList.add(new EventTask(eventMatcher.group(2), eventMatcher.group(4), eventMatcher.group(6)));
-                    taskListSize++;
-                    System.out.println("A new chapter in your story!");
-                    System.out.println("added: " + taskList.get(taskListSize - 1));
-                    System.out.println("Now you have " + taskListSize + " chapters in your story");
+                    String taskDescription = eventMatcher.group(2);
+                    String start = eventMatcher.group(4);
+                    String end = eventMatcher.group(6);
+                    taskList.add(taskDescription, start, end);
                 } else if (deleteMatcher.matches()) {
                     int index = Integer.parseInt(deleteMatcher.group(2));
-                    if (index <= taskListSize & index > 0) {
-                        Task removedTask = taskList.get(index - 1);
-                        taskList.remove(index - 1);
-                        taskListSize--;
-
-                        System.out.println("The following chapter has been removed from your story:");
-                        System.out.println(removedTask);
-                        System.out.println("Now you have " + taskListSize + " chapters in your story");
-                    } else {
-                        throw(new InvalidIndexError());
-                    }
+                    taskList.delete(index);
                 } else {
                     throw new InvalidInputError();
                 }
