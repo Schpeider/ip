@@ -16,12 +16,11 @@ public class Marcus {
 
         ui.showWelcome();
 
-
         label:
         while (true) {
             try {
                 ui.requestAction();
-                String userInput = ui.getUserInput(); //to remove whitespace if accidentally added by user
+                String userInput = ui.getUserInput();
                 ArrayList<String> parsedCommand = Parser.parseCommand(userInput);
                 String command = parsedCommand.get(0);
 
