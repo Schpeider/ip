@@ -9,6 +9,11 @@ public class EventTask extends Task{
     }
 
     @Override
+    public String getSaveFileString() {
+        return String.format("E|%d|%s|%s|%s", this.isCompleted ? 1 : 0, this.description, this.start, this.end);
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + this.start + " to: " + this.end + ")";
     }

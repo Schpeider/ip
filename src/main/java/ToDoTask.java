@@ -4,6 +4,11 @@ public class ToDoTask extends Task{
     }
 
     @Override
+    public String getSaveFileString() {
+        return String.format("T|%d|%s", this.isCompleted ? 1 : 0, this.description);
+    }
+
+    @Override
     public String toString() {
         return "[T]" + super.toString();
     }
