@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,7 +30,8 @@ public class Marcus {
         Pattern toDoPattern = Pattern.compile("^(todo)\\s*(.*)$");
 
         //regex for Deadlines, to identify if user input matches this style
-        Pattern deadlinePattern = Pattern.compile("^(deadline) (.+) (/by) (.+)$");
+        String datePattern = "\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])";
+        Pattern deadlinePattern = Pattern.compile("^(deadline) (.+) (/by) (" + datePattern + ")$");
 
         //regex for Events, to identify if user input matches this style
         Pattern eventPattern = Pattern.compile("^(event) (.+) (/from) (.+) (/to) (.+)$");
@@ -65,7 +67,7 @@ public class Marcus {
                     taskList.add(taskDescription);
                 } else if (deadlineMatcher.matches()) {
                     String taskDescription = deadlineMatcher.group(2);
-                    String taskDeadline = deadlineMatcher.group(4);
+                    LocalDate taskDeadline = LocalDate.parse(deadlineMatcher.group(4));
                     taskList.add(taskDescription, taskDeadline);
                 } else if (eventMatcher.matches()) {
                     String taskDescription = eventMatcher.group(2);

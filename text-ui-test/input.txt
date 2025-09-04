@@ -1,7 +1,7 @@
 todo borrow a book
 list
 event attend a meetup /from now /to later
-deadline CA1 /by 21 August 2025
+deadline CA1 /by 2025-08-21
 list
 mark 5
 unmark 1

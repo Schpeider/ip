@@ -19,14 +19,14 @@ Now you have 2 chapters in your story
 
 What can I do for you today?:
 A new chapter in your story!
-added: [D][ ] CA1 (by: 21 August 2025)
+added: [D][ ] CA1 (by: Aug 21 2025)
 Now you have 3 chapters in your story
 
 What can I do for you today?:
 Here are the current chapters:
 1. [T][ ] borrow a book
 2. [E][ ] attend a meetup (from: now to: later)
-3. [D][ ] CA1 (by: 21 August 2025)
+3. [D][ ] CA1 (by: Aug 21 2025)
 
 What can I do for you today?:
 That chapter does not exist in your story
@@ -36,14 +36,14 @@ You haven't started on this chapter yet
 
 What can I do for you today?:
 A brand new chapter complete!
-[D][X] CA1 (by: 21 August 2025)
+[D][X] CA1 (by: Aug 21 2025)
 
 What can I do for you today?:
 This chapter has already been completed before
 
 What can I do for you today?:
 You forgot about this chapter...
-[D][ ] CA1 (by: 21 August 2025)
+[D][ ] CA1 (by: Aug 21 2025)
 
 What can I do for you today?:
 Mission complete! Was I helpful today?

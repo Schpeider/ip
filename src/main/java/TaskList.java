@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -66,7 +67,7 @@ public class TaskList {
         }
     }
 
-    public void add(String taskDescription, String taskDeadline) {
+    public void add(String taskDescription, LocalDate taskDeadline) {
         taskList.add(new DeadlineTask(taskDescription, taskDeadline));
         taskListSize++;
         System.out.println("A new chapter in your story!");
