@@ -70,6 +70,25 @@ public class UI {
         }
     }
 
+    public void findTask(TaskList tL, String keyword) {
+        if (tL.getTaskListSize() > 0) {
+            System.out.println("Here are the matching chapters:");
+            Boolean flag = false;
+            for (int i = 0; i < tL.getTaskListSize(); i++) {
+                if (tL.getTaskList().get(i).getDescription().contains(keyword)) {
+                    System.out.println((i + 1) + ". " + tL.getTaskList().get(i));
+                    flag = true;
+                }
+            }
+
+            if (!flag) {
+                System.out.println("There are no matching chapters.");
+            }
+        } else {
+            System.out.println("Your story has no chapters currently");
+        }
+    }
+
     public void showMessage(String message) {
         System.out.println(message);
     }

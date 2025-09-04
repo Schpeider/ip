@@ -68,6 +68,10 @@ public class Marcus {
                     Task deletedTask = taskList.delete(index);
                     ui.showTaskDeleted(taskList, deletedTask);
                     break;
+                case "find":
+                    String keyword = parsedCommand.get(1);
+                    ui.findTask(taskList, keyword);
+                    break;
                 default:
                     throw new InvalidInputError();
                 }

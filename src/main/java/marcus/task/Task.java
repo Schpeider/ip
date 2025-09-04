@@ -9,6 +9,10 @@ public class Task {
         this.isCompleted = false;
     }
 
+    public String getDescription() {
+        return this.description;
+    }
+
     /**
      * Switches complete status from false to true.
      *
