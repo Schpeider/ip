@@ -16,6 +16,9 @@ import java.util.Scanner;
 public class SaveFileManager {
     private static final String path = "./data/marcus.txt";
 
+    /**
+     * Creates a save file if a save file has yet to be created.
+     */
     public static void init() {
         File file = new File(path);
         //creates parent directory if missing
@@ -29,6 +32,11 @@ public class SaveFileManager {
         }
     }
 
+    /**
+     * Writes to the save file
+     *
+     * @param text Tasks details saved in an easy to parse format.
+     */
     public static void writeToFile(String text) {
         try {
             FileWriter fw = new FileWriter(path);
@@ -39,6 +47,12 @@ public class SaveFileManager {
         }
     }
 
+    /**
+     * Reads from the save file.
+     * It converts the data in the file to an ArrayList of Tasks.
+     *
+     * @return An ArrayList of the tasks stored in the save file.
+     */
     public static ArrayList<Task> readFromFile() throws FileNotFoundException {
         File file = new File(path);
         Scanner s = new Scanner(file);
