@@ -58,9 +58,11 @@ public class SaveFileManager {
         Scanner s = new Scanner(file);
         ArrayList<Task> tasks = new ArrayList<>();
         int listSize = 0;
+
         //Assume that the file content is always of a valid format
         while (s.hasNext()) {
             String[] newTask = s.nextLine().split("\\|");
+
             if (newTask[0].equals("T")) {
                 tasks.add(new ToDoTask(newTask[2]));
             } else if (newTask[0].equals("D")) {

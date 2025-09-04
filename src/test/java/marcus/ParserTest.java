@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserTest {
     @Test
-    public void testParserMark(){
+    public void testParserMark() {
         ArrayList<String> result = new ArrayList<>();
         result.add("mark");
         result.add("4");
@@ -16,7 +16,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParserUnmark(){
+    public void testParserUnmark() {
         ArrayList<String> result = new ArrayList<>();
         result.add("unmark");
         result.add("4");
@@ -24,7 +24,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParserToDo(){
+    public void testParserToDo() {
         ArrayList<String> result = new ArrayList<>();
         result.add("toDo");
         result.add("sleep in");
@@ -32,14 +32,14 @@ public class ParserTest {
     }
 
     @Test
-    public void testParserInvalidDeadline(){
+    public void testParserInvalidDeadline() {
         ArrayList<String> result = new ArrayList<>();
         result.add("Invalid Command");
         assertEquals(result, Parser.parseCommand("deadline sleep /by 2025"));
     }
 
     @Test
-    public void testParserValidDeadline(){
+    public void testParserValidDeadline() {
         ArrayList<String> result = new ArrayList<>();
         result.add("deadline");
         result.add("sleep");
@@ -48,14 +48,14 @@ public class ParserTest {
     }
 
     @Test
-    public void testParserInvalidDeadlineDate(){
+    public void testParserInvalidDeadlineDate() {
         ArrayList<String> result = new ArrayList<>();
         result.add("Invalid Command");
         assertEquals(result, Parser.parseCommand("deadline sleep /by 2025-13-03"));
     }
 
     @Test
-    public void testParserInvalidCommand(){
+    public void testParserInvalidCommand() {
         ArrayList<String> result = new ArrayList<>();
         result.add("Invalid Command");
         assertEquals(result, Parser.parseCommand("task please"));

@@ -16,7 +16,6 @@ public class Marcus {
 
         ui.showWelcome();
 
-
         label:
         while (true) {
             try {
