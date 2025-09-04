@@ -1,92 +1,74 @@
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
 
 public class Marcus {
     public static void main(String[] args) {
         //initialise variables
         TaskList taskList = new TaskList();
-        String userInput;
-        Scanner reader = new Scanner(System.in);
+        UI ui = new UI();
+
+        ui.showWelcome();
 
 
-        //Greeting Text
-        System.out.println("Greetings, Marcus here!");
-        System.out.println("Reading helps quiet the world around me, turning challenges into words on a page");
-        System.out.println("I think of each task as a chapter, one step at a time, each with its own meaning, "
-                            + "each shaping the story I live.");
-        System.out.println("I hope this way of thinking will help you face your challenges more easily too!\n");
-
-        //regex for markStatus, to identify if user input matches this style
-        Pattern markStatusPattern = Pattern.compile("^(mark) (\\d+)$");
-
-        //regex for unmarkStatus, to identify if user input matches this style
-        Pattern unmarkStatusPattern = Pattern.compile("^(unmark) (\\d+)$");
-
-        //regex for ToDos, to identify if user input matches this style
-        Pattern toDoPattern = Pattern.compile("^(todo)\\s*(.*)$");
-
-        //regex for Deadlines, to identify if user input matches this style
-        String datePattern = "\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])";
-        Pattern deadlinePattern = Pattern.compile("^(deadline) (.+) (/by) (" + datePattern + ")$");
-
-        //regex for Events, to identify if user input matches this style
-        Pattern eventPattern = Pattern.compile("^(event) (.+) (/from) (.+) (/to) (.+)$");
-
-        //regex for delete, to identify if user input matches this style
-        Pattern deletePattern = Pattern.compile("^(delete) (\\d+)$");
-
+        label:
         while (true) {
             try {
-                System.out.print("What can I do for you today?:\n");
-                userInput = reader.nextLine().trim(); //to remove whitespace if accidentally added by user
+                ui.requestAction();
+                String userInput = ui.getUserInput(); //to remove whitespace if accidentally added by user
+                ArrayList<String> parsedCommand = Parser.parseCommand(userInput);
+                String command = parsedCommand.get(0);
 
-                //matching user input with each of the possible patterns
-                Matcher markStatusMatcher = markStatusPattern.matcher(userInput);
-                Matcher unmarkStatusMatcher = unmarkStatusPattern.matcher(userInput);
-                Matcher toDoMatcher = toDoPattern.matcher(userInput);
-                Matcher deadlineMatcher = deadlinePattern.matcher(userInput);
-                Matcher eventMatcher = eventPattern.matcher(userInput);
-                Matcher deleteMatcher = deletePattern.matcher(userInput);
-
-                if (userInput.equals("bye")) {
+                switch (command) {
+                case "bye":
+                    break label;
+                case "list":
+                    ui.showTaskList(taskList);
                     break;
-                } else if (userInput.equals("list")) {
-                    taskList.listTasks();
-                } else if (markStatusMatcher.matches()) {
-                    int taskIndex = Integer.parseInt(markStatusMatcher.group(2));
-                    taskList.mark(taskIndex);
-                } else if (unmarkStatusMatcher.matches()) {
-                    int taskIndex = Integer.parseInt(unmarkStatusMatcher.group(2));
-                    taskList.unmark(taskIndex);
-                } else if (toDoMatcher.matches()) {
-                    String taskDescription = toDoMatcher.group(2);
+                case "mark": {
+                    int taskIndex = Integer.parseInt(parsedCommand.get(1));
+                    String message = taskList.mark(taskIndex);
+                    ui.showMessage(message);
+                    break;
+                }
+                case "unmark": {
+                    int taskIndex = Integer.parseInt(parsedCommand.get(1));
+                    String message = taskList.unmark(taskIndex);
+                    ui.showMessage(message);
+                    break;
+                }
+                case "toDo": {
+                    String taskDescription = parsedCommand.get(1);
                     taskList.add(taskDescription);
-                } else if (deadlineMatcher.matches()) {
-                    String taskDescription = deadlineMatcher.group(2);
-                    LocalDate taskDeadline = LocalDate.parse(deadlineMatcher.group(4));
+                    ui.showTaskAdded(taskList);
+                    break;
+                }
+                case "deadline": {
+                    String taskDescription = parsedCommand.get(1);
+                    LocalDate taskDeadline = LocalDate.parse(parsedCommand.get(2));
                     taskList.add(taskDescription, taskDeadline);
-                } else if (eventMatcher.matches()) {
-                    String taskDescription = eventMatcher.group(2);
-                    String start = eventMatcher.group(4);
-                    String end = eventMatcher.group(6);
+                    ui.showTaskAdded(taskList);
+                    break;
+                }
+                case "event": {
+                    String taskDescription = parsedCommand.get(1);
+                    String start = parsedCommand.get(2);
+                    String end = parsedCommand.get(3);
                     taskList.add(taskDescription, start, end);
-                } else if (deleteMatcher.matches()) {
-                    int index = Integer.parseInt(deleteMatcher.group(2));
-                    taskList.delete(index);
-                } else {
+                    ui.showTaskAdded(taskList);
+                    break;
+                }
+                case "delete":
+                    int index = Integer.parseInt(parsedCommand.get(1));
+                    Task deletedTask = taskList.delete(index);
+                    ui.showTaskDeleted(taskList, deletedTask);
+                    break;
+                default:
                     throw new InvalidInputError();
                 }
-            } catch (MissingDescriptionError e) {
-                System.out.println("Description cannot be empty\n" + e.getMessage());
-            } catch (InvalidInputError | InvalidIndexError e) {
-                System.out.println(e.getMessage());
+            } catch (MissingDescriptionError | InvalidInputError | InvalidIndexError e) {
+                ui.showMessage(e.getMessage());
             }
-            System.out.print("\n");
         }
-        System.out.println("Mission complete! Was I helpful today?");
+        ui.showGoodbye();
     }
 }
