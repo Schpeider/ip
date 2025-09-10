@@ -21,7 +21,6 @@ public class TaskList {
             taskList = SaveFileManager.readFromFile();
             taskListSize = taskList.size();
         } catch (FileNotFoundException e) {
-            System.out.println("Save file not found");
             taskList = new ArrayList<>();
         }
     }

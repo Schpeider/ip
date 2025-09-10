@@ -15,91 +15,87 @@ public class UI {
     /**
      * Shows the welcome message from the chatbot, Marcus.
      */
-    public void showWelcome() {
+    public String showWelcome() {
+        String message = "";
         //Greeting Text
-        System.out.println("Greetings, Marcus here!");
-        System.out.println("Reading helps quiet the world around me, turning challenges into words on a page");
-        System.out.println("I think of each task as a chapter, one step at a time, each with its own meaning, "
-                + "each shaping the story I live.");
-        System.out.println("I hope this way of thinking will help you face your challenges more easily too!");
+        message += "Greetings, Marcus here! ";
+        message += "I think of each task as a chapter, one step at a time, each with its own meaning, "
+                + "each shaping the story I live. ";
+        message += "I hope this way of thinking will help you face your challenges more easily too!";
+        return message;
     }
 
     /**
      * Shows filler text when requesting for user input.
      */
-    public void requestAction() {
-        System.out.print("\nWhat can I do for you today?:\n");
+    public String requestAction() {
+        return ("What can I do for you today?");
     }
 
     /**
      * Displays the task added, and the current size of task list.
      */
-    public void showTaskAdded(TaskList tL) {
-        System.out.println("A new chapter in your story!");
-        System.out.println("added: " + tL.getTaskList().get(tL.getTaskListSize() - 1));
-        System.out.println("Now you have " + tL.getTaskListSize() + " chapters in your story");
+    public String showTaskAdded(TaskList tL) {
+        String message = "";
+        message += "A new chapter in your story!\n";
+        message += "added: " + tL.getTaskList().get(tL.getTaskListSize() - 1) + "\n";
+        message += "Now you have " + tL.getTaskListSize() + " chapters in your story";
+        return message;
     }
 
     /**
      * Displays the task deleted, and the current size of task list.
      */
-    public void showTaskDeleted(TaskList tL, Task deletedTask) {
-        System.out.println("The following chapter has been removed from your story:");
-        System.out.println(deletedTask);
-        System.out.println("Now you have " + tL.getTaskListSize() + " chapters in your story");
+    public String showTaskDeleted(TaskList tL, Task deletedTask) {
+        String message = "";
+        message += "The following chapter has been removed from your story:\n";
+        message += deletedTask + "\n";
+        message += "Now you have " + tL.getTaskListSize() + " chapters in your story";
+        return message;
     }
 
     /**
      * Displays the farewell message from the chatbot, Marcus.
      */
-    public void showGoodbye() {
-        System.out.println("Mission complete! Was I helpful today?");
+    public String showGoodbye() {
+        return "Mission complete! Was I helpful today?";
     }
 
     /**
      * Displays the entire task list in a format easily understandable by users.
      */
-    public void showTaskList(TaskList tL) {
+    public String showTaskList(TaskList tL) {
+        String message = "";
         if (tL.getTaskListSize() > 0) {
-            System.out.println("Here are the current chapters:");
+            message += "Here are the current chapters:\n";
             for (int i = 0; i < tL.getTaskListSize(); i++) {
-                System.out.println((i + 1) + ". " + tL.getTaskList().get(i));
+                message += (i + 1) + ". " + tL.getTaskList().get(i) + "\n";
             }
         } else {
-            System.out.println("Your story has no chapters currently");
+            message += "Your story has no chapters currently";
         }
+        return message;
     }
 
-    public void findTask(TaskList tL, String keyword) {
+    public String findTask(TaskList tL, String keyword) {
+        String message = "";
         if (tL.getTaskListSize() > 0) {
-            System.out.println("Here are the matching chapters:");
-            Boolean flag = false;
+            message += "Here are the matching chapters:\n";
+            Boolean taskFound = false;
             for (int i = 0; i < tL.getTaskListSize(); i++) {
                 if (tL.getTaskList().get(i).getDescription().contains(keyword)) {
-                    System.out.println((i + 1) + ". " + tL.getTaskList().get(i));
-                    flag = true;
+                    message += (i + 1) + ". " + tL.getTaskList().get(i) + "\n";
+                    taskFound = true;
                 }
             }
 
-            if (!flag) {
-                System.out.println("There are no matching chapters.");
+            if (!taskFound) {
+                message += "There are no matching chapters.";
             }
         } else {
-            System.out.println("Your story has no chapters currently");
+            message += "Your story has no chapters currently";
         }
-    }
-
-    public void showMessage(String message) {
-        System.out.println(message);
-    }
-
-    // Input methods
-    /**
-     * Takes in user input.
-     * Additional whitespace is trimmed.
-     */
-    public String getUserInput() {
-        return this.reader.nextLine().trim();
+        return message;
     }
 
 }
