@@ -38,6 +38,8 @@ public class SaveFileManager {
      * @param text Tasks details saved in an easy to parse format.
      */
     public static void writeToFile(String text) {
+        assert text != null : "Text should not be null";
+
         try {
             FileWriter fw = new FileWriter(path);
             fw.write(text);

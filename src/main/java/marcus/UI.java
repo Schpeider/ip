@@ -36,6 +36,9 @@ public class UI {
      * Displays the task added, and the current size of task list.
      */
     public String showTaskAdded(TaskList tL) {
+        assert tL != null : "Task List should not be null";
+        assert tL.getTaskListSize() > 0 : "TaskList must have at least one task to show newly added task";
+
         String message = "";
         message += "A new chapter in your story!\n";
         message += "added: " + tL.getTaskList().get(tL.getTaskListSize() - 1) + "\n";
@@ -47,6 +50,9 @@ public class UI {
      * Displays the task deleted, and the current size of task list.
      */
     public String showTaskDeleted(TaskList tL, Task deletedTask) {
+        assert tL != null : "Task List should not be null";
+        assert deletedTask != null : "Deleted Task should not be null";
+
         String message = "";
         message += "The following chapter has been removed from your story:\n";
         message += deletedTask + "\n";
@@ -65,6 +71,9 @@ public class UI {
      * Displays the entire task list in a format easily understandable by users.
      */
     public String showTaskList(TaskList tL) {
+        assert tL != null : "Task List should not be null";
+        assert tL.getTaskListSize() >= 0 : "TaskList size should never be negative";
+
         String message = "";
         if (tL.getTaskListSize() > 0) {
             message += "Here are the current chapters:\n";
@@ -77,7 +86,15 @@ public class UI {
         return message;
     }
 
+    /**
+     * Displays all tasks that contain the keyword.
+     * If no matching tasks are found, returns a message to inform the user.
+     * If task list is empty, returns a message to inform the user.
+     */
     public String findTask(TaskList tL, String keyword) {
+        assert tL != null : "Task List should not be null";
+        assert keyword != null : "Keyword should not be null";
+
         String message = "";
         if (tL.getTaskListSize() > 0) {
             message += "Here are the matching chapters:\n";

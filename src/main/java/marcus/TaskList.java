@@ -23,6 +23,9 @@ public class TaskList {
         } catch (FileNotFoundException e) {
             taskList = new ArrayList<>();
         }
+
+        assert taskList != null : "TaskList should never be null";
+        assert taskListSize >= 0 : "TaskList size must be non-negative";
     }
 
     public ArrayList<Task> getTaskList() {
@@ -30,6 +33,7 @@ public class TaskList {
     }
 
     public int getTaskListSize() {
+        assert taskListSize == taskList.size() : "taskListSize must match taskList.size()";
         return taskListSize;
     }
 
