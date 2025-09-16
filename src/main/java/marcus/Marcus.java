@@ -43,6 +43,9 @@ public class Marcus {
             case "list":
                 message = ui.showTaskList(taskList);
                 break;
+            case "help":
+                message = ui.showHelp();
+                break;
             case "mark": {
                 int taskIndex = Integer.parseInt(parsedCommand.get(1));
                 message = taskList.mark(taskIndex);

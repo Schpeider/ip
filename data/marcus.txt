@@ -1,2 +1,3 @@
-T|0|not sleep
+T|1|not sleep
 D|0|sleep|2020-09-30
+T|0|go to school

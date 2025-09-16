@@ -25,6 +25,21 @@ public class UI {
         return message;
     }
 
+    public String showHelp() {
+        return "Here are the commands you can use:\n"
+                + "  - list\n"
+                + "  - bye\n"
+                + "  - todo <description>\n"
+                + "  - deadline <description> /by <yyyy-mm-dd>\n"
+                + "  - event <description> /from <start> /to <end>\n"
+                + "  - mark <task number>\n"
+                + "  - unmark <task number>\n"
+                + "  - delete <task number>\n"
+                + "  - find <keyword>\n"
+                + "  - help";
+    }
+
+
     /**
      * Shows filler text when requesting for user input.
      */
@@ -66,35 +81,40 @@ public class UI {
      */
     public String showTaskList(TaskList tL) {
         String message = "";
-        if (tL.getTaskListSize() > 0) {
-            message += "Here are the current chapters:\n";
-            for (int i = 0; i < tL.getTaskListSize(); i++) {
-                message += (i + 1) + ". " + tL.getTaskList().get(i) + "\n";
-            }
-        } else {
+
+        if (tL.getTaskListSize() == 0) {
             message += "Your story has no chapters currently";
+            return message;
+        }
+
+        message += "Here are the current chapters:\n";
+        for (int i = 0; i < tL.getTaskListSize(); i++) {
+            message += (i + 1) + ". " + tL.getTaskList().get(i) + "\n";
         }
         return message;
     }
 
     public String findTask(TaskList tL, String keyword) {
         String message = "";
-        if (tL.getTaskListSize() > 0) {
-            message += "Here are the matching chapters:\n";
-            Boolean taskFound = false;
-            for (int i = 0; i < tL.getTaskListSize(); i++) {
-                if (tL.getTaskList().get(i).getDescription().contains(keyword)) {
-                    message += (i + 1) + ". " + tL.getTaskList().get(i) + "\n";
-                    taskFound = true;
-                }
-            }
 
-            if (!taskFound) {
-                message += "There are no matching chapters.";
-            }
-        } else {
+        if (tL.getTaskListSize() == 0) {
             message += "Your story has no chapters currently";
+            return message;
         }
+
+        message += "Here are the matching chapters:\n";
+        boolean taskFound = false;
+        for (int i = 0; i < tL.getTaskListSize(); i++) {
+            if (tL.getTaskList().get(i).getDescription().contains(keyword)) {
+                message += (i + 1) + ". " + tL.getTaskList().get(i) + "\n";
+                taskFound = true;
+            }
+        }
+
+        if (!taskFound) {
+            message += "There are no matching chapters.";
+        }
+
         return message;
     }
 
