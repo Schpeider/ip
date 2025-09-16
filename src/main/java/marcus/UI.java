@@ -26,17 +26,21 @@ public class UI {
     }
 
     public String showHelp() {
-        return "Here are the commands you can use:\n"
+        return "=======Commands=======\n\n"
+                + "General Commands\n"
                 + "  - list\n"
                 + "  - bye\n"
+                + "  - help\n\n"
+                + "Adding tasks\n"
                 + "  - todo <description>\n"
                 + "  - deadline <description> /by <yyyy-mm-dd>\n"
-                + "  - event <description> /from <start> /to <end>\n"
+                + "  - event <description> /from <start> /to <end>\n\n"
+                + "Managing tasks\n"
                 + "  - mark <task number>\n"
                 + "  - unmark <task number>\n"
                 + "  - delete <task number>\n"
-                + "  - find <keyword>\n"
-                + "  - help";
+                + "  - find <keyword>\n\n"
+                + "======================";
     }
 
 
