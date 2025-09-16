@@ -72,7 +72,7 @@ public class UI {
      */
     public String showTaskList(TaskList tL) {
         assert tL != null : "Task List should not be null";
-        assert tL.getTaskListSize() >= 0 : "TaskList size should never be negative";
+        assert tL.getTaskListSize() >= 0 : "TaskList size should not be negative";
 
         String message = "";
         if (tL.getTaskListSize() > 0) {
@@ -94,6 +94,7 @@ public class UI {
     public String findTask(TaskList tL, String keyword) {
         assert tL != null : "Task List should not be null";
         assert keyword != null : "Keyword should not be null";
+        assert tL.getTaskListSize() >= 0 : "TaskList size should not be negative";
 
         String message = "";
         if (tL.getTaskListSize() > 0) {
