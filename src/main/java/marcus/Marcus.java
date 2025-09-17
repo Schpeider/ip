@@ -28,76 +28,102 @@ public class Marcus {
         return ui.requestAction();
     }
 
+    /**
+     * Passes parsed input to appropriate handler function.
+     *
+     * ChatGPT was used to abstract out methods, and create
+     * the handler functions below.
+     */
     public String run(String userInput) {
-        String message;
-
         try {
             ArrayList<String> parsedCommand = Parser.parseCommand(userInput);
             String command = parsedCommand.get(0);
 
             switch (command) {
             case "bye":
-                message = ui.showGoodbye();
-                this.isExit = true;
-                break;
+                return handleBye();
             case "list":
-                message = ui.showTaskList(taskList);
-                break;
+                return handleList();
             case "help":
-                message = ui.showHelp();
-                break;
-            case "mark": {
-                int taskIndex = Integer.parseInt(parsedCommand.get(1));
-                message = taskList.mark(taskIndex);
-                break;
-            }
-            case "unmark": {
-                int taskIndex = Integer.parseInt(parsedCommand.get(1));
-                message = taskList.unmark(taskIndex);
-                break;
-            }
-            case "toDo": {
-                String taskDescription = parsedCommand.get(1);
-                taskList.add(taskDescription);
-                message = ui.showTaskAdded(taskList);
-                break;
-            }
-            case "deadline": {
-                String taskDescription = parsedCommand.get(1);
-                LocalDate taskDeadline = LocalDate.parse(parsedCommand.get(2));
-                taskList.add(taskDescription, taskDeadline);
-                message = ui.showTaskAdded(taskList);
-                break;
-            }
-            case "event": {
-                String taskDescription = parsedCommand.get(1);
-                String start = parsedCommand.get(2);
-                String end = parsedCommand.get(3);
-                taskList.add(taskDescription, start, end);
-                message = ui.showTaskAdded(taskList);
-                break;
-            }
+                return handleHelp();
+            case "mark":
+                return handleMark(parsedCommand);
+            case "unmark":
+                return handleUnmark(parsedCommand);
+            case "toDo":
+                return handleToDo(parsedCommand);
+            case "deadline":
+                return handleDeadline(parsedCommand);
+            case "event":
+                return handleEvent(parsedCommand);
             case "delete":
-                int index = Integer.parseInt(parsedCommand.get(1));
-                Task deletedTask = taskList.delete(index);
-                message = ui.showTaskDeleted(taskList, deletedTask);
-                break;
+                return handleDelete(parsedCommand);
             case "find":
-                String keyword = parsedCommand.get(1);
-                message = ui.findTask(taskList, keyword);
-                break;
+                return handleFind(parsedCommand);
             default:
                 throw new InvalidInputError();
             }
         } catch (MissingDescriptionError | InvalidInputError | InvalidIndexError e) {
-            message = e.getMessage();
+            return e.getMessage();
         }
-        return message;
+    }
+
+    private String handleBye() {
+        this.isExit = true;
+        return ui.showGoodbye();
+    }
+
+    private String handleList() {
+        return ui.showTaskList(taskList);
+    }
+
+    private String handleHelp() {
+        return ui.showHelp();
+    }
+
+    private String handleMark(ArrayList<String> parsedCommand) throws InvalidIndexError {
+        int taskIndex = Integer.parseInt(parsedCommand.get(1));
+        return taskList.mark(taskIndex);
+    }
+
+    private String handleUnmark(ArrayList<String> parsedCommand) throws InvalidIndexError {
+        int taskIndex = Integer.parseInt(parsedCommand.get(1));
+        return taskList.unmark(taskIndex);
+    }
+
+    private String handleToDo(ArrayList<String> parsedCommand) throws MissingDescriptionError {
+        String taskDescription = parsedCommand.get(1);
+        taskList.add(taskDescription);
+        return ui.showTaskAdded(taskList);
+    }
+
+    private String handleDeadline(ArrayList<String> parsedCommand) {
+        String taskDescription = parsedCommand.get(1);
+        LocalDate taskDeadline = LocalDate.parse(parsedCommand.get(2));
+        taskList.add(taskDescription, taskDeadline);
+        return ui.showTaskAdded(taskList);
+    }
+
+    private String handleEvent(ArrayList<String> parsedCommand) {
+        String taskDescription = parsedCommand.get(1);
+        String start = parsedCommand.get(2);
+        String end = parsedCommand.get(3);
+        taskList.add(taskDescription, start, end);
+        return ui.showTaskAdded(taskList);
+    }
+
+    private String handleDelete(ArrayList<String> parsedCommand) throws InvalidIndexError {
+        int taskIndex = Integer.parseInt(parsedCommand.get(1));
+        Task deletedTask = taskList.delete(taskIndex);
+        return ui.showTaskDeleted(taskList, deletedTask);
+    }
+
+    private String handleFind(ArrayList<String> parsedCommand) {
+        String keyword = parsedCommand.get(1);
+        return ui.findTask(taskList, keyword);
     }
 
     public boolean getIsExit() {
         return this.isExit;
     }
-
-
 }
