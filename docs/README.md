@@ -6,6 +6,26 @@ Marcus is a chatbot inspired by a character who loves to read. With Marcus, you 
 
 # Marcus chatbot commands
 
+### Adding Tasks
+
+- [Adding todo](#adding-todo)
+- [Adding deadline](#adding-deadline)
+- [Adding event](#adding-event)
+
+### General Commands
+
+- [Viewing your task list](#viewing-your-task-list)
+- [Exiting the chatbot](#exiting-the-chatbot)
+- [Getting help](#getting-help)
+
+### Managing tasks
+
+- [Marking task as complete](#marking-task-as-complete)
+- [Marking task as incomplete](#marking-task-as-incomplete)
+- [Deleting a task](#deleting-a-task)
+- [Finding a task](#finding-a-task)
+
+
 ## Adding todo
 
 Use the todo command to add a task. The task will be stored in your story as a chapter.
