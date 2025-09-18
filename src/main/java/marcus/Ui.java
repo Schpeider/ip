@@ -4,10 +4,10 @@ import marcus.task.Task;
 
 import java.util.Scanner;
 
-public class UI {
+public class Ui {
     private Scanner reader;
 
-    public UI() {
+    public Ui() {
         this.reader = new Scanner(System.in);
     }
 

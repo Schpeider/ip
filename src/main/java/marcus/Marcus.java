@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Marcus {
     private TaskList taskList = new TaskList();
-    private UI ui = new UI();
+    private Ui ui = new Ui();
     private boolean isExit = false;
 
 
