@@ -6,10 +6,6 @@ Marcus is a chatbot inspired by a character who loves to read. With Marcus, you 
 
 # Marcus chatbot commands
 
-<details>
-  
-<summary>📝 Adding tasks</summary>
-
 ## Adding todo
 
 Use the todo command to add a task. The task will be stored in your story as a chapter.
@@ -67,12 +63,6 @@ A new chapter in your story!
 added: [E][] Read a book (from: Monday to: Tuesday)
 Now you have 4 chapters in your story
 ```
-
-</details>
-
-<details>
-  
-<summary>⚙️ General Commands</summary>
 
 ## Viewing your task list
 
@@ -144,12 +134,6 @@ Managing tasks
 
 ======================
 ```
-
-</details>
-
-<details>
-  
-<summary>✍️ Managing tasks</summary>
 
 ## Marking task as complete
 
@@ -229,5 +213,3 @@ Here are the matching chapters:
 2. [D][] Write a book (by: Sep 9 2025)
 3. [E][] Attend a book fair (from: 9th September to: 12th September)
 ```
-
-</details>
